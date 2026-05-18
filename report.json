@@ -1,0 +1,103 @@
+{
+  "fetchedAt": "2026-05-18T23:51:28.028026+00:00",
+  "totalInput": 222,
+  "totalOutput": 198,
+  "dropped": [
+    {
+      "id": "adobe-client-secret",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "alibaba-access-key-id",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "authress-service-client-access-key",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "curl-auth-header",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "doppler-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "duffel-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "dynatrace-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "easypost-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "easypost-test-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "facebook-page-access-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "flutterwave-encryption-key",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "flutterwave-public-key",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "flutterwave-secret-key",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "frameio-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "gocardless-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "intra42-client-secret",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "jwt-base64",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "linear-api-key",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "pkcs12-file",
+      "reason": "no regex"
+    },
+    {
+      "id": "planetscale-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "planetscale-password",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "postman-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "sendgrid-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "sendinblue-api-token",
+      "reason": "regex did not compile after translation"
+    }
+  ]
+}
