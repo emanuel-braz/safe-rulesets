@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-05-18T23:51:28.028026+00:00",
+  "fetchedAt": "2026-05-19T07:39:33.944373+00:00",
   "totalInput": 222,
-  "totalOutput": 198,
+  "totalOutput": 195,
   "dropped": [
     {
       "id": "adobe-client-secret",
@@ -17,6 +17,10 @@
     },
     {
       "id": "curl-auth-header",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "curl-auth-user",
       "reason": "regex did not compile after translation"
     },
     {
@@ -76,6 +80,10 @@
       "reason": "regex did not compile after translation"
     },
     {
+      "id": "openshift-user-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
       "id": "pkcs12-file",
       "reason": "no regex"
     },
@@ -97,6 +105,10 @@
     },
     {
       "id": "sendinblue-api-token",
+      "reason": "regex did not compile after translation"
+    },
+    {
+      "id": "sentry-org-token",
       "reason": "regex did not compile after translation"
     }
   ]

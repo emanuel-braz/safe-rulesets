@@ -1,6 +1,6 @@
 {
   "version": "e163e53b9e7e",
-  "fetchedAt": "2026-05-18T23:51:28.028026+00:00",
+  "fetchedAt": "2026-05-19T07:39:33.944373+00:00",
   "rules": [
     {
       "id": "1password-secret-key",
@@ -478,31 +478,6 @@
       "confidence": "high",
       "keywords": [
         "contentful"
-      ]
-    },
-    {
-      "id": "curl-auth-user",
-      "name": "Discovered a potential basic authorization token provided in a curl command, whi",
-      "category": "userCustom",
-      "regex": "\\bcurl\\b(?:.*|.*(?:[\\r\\n]{1,2}.*){1,5})[ \\t\\n\\r](?:-u|--user)(?:=|[ \\t]{0,5})(\"(:[^\"]{3,}|[^:\"]{3,}:|[^:\"]{3,}:[^\"]{3,})\"|'([^:']{3,}:[^']{3,})'|((?:\"[^\"]{3,}\"|'[^']{3,}'|[\\w$@.-]+):(?:\"[^\"]{3,}\"|'[^']{3,}'|[\\w${}@.-]+)))(?:\\s|\\z)",
-      "captureGroup": 0,
-      "replacementTag": "CURL_AUTH_USER",
-      "confidence": "high",
-      "entropy": 2.0,
-      "keywords": [
-        "curl"
-      ],
-      "allowlists": [
-        {
-          "regexes": [
-            "[^:]+:(?:change(?:it|me)|pass(?:word)?|pwd|test|token|\\*+|x+)",
-            "['\"]?<[^>]+>['\"]?:['\"]?<[^>]+>|<[^:]+:[^>]+>['\"]?",
-            "[^:]+:\\[[^]]+]",
-            "['\"]?[^:]+['\"]?:['\"]?\\$(?:\\d|\\w+|\\{(?:\\d|\\w+)})['\"]?",
-            "\\$\\([^)]+\\):\\$\\([^)]+\\)",
-            "['\"]?\\$?{{[^}]+}}['\"]?:['\"]?\\$?{{[^}]+}}['\"]?"
-          ]
-        }
       ]
     },
     {
@@ -3279,19 +3254,6 @@
       ]
     },
     {
-      "id": "openshift-user-token",
-      "name": "Found an OpenShift user token, potentially compromising an OpenShift/Kubernetes ",
-      "category": "cloud",
-      "regex": "\\b(sha256~[\\w-]{43})(?:[^\\w-]|\\z)",
-      "captureGroup": 0,
-      "replacementTag": "OPENSHIFT_USER_TOKEN",
-      "confidence": "high",
-      "entropy": 3.5,
-      "keywords": [
-        "sha256~"
-      ]
-    },
-    {
       "id": "perplexity-api-key",
       "name": "Detected a Perplexity API key, which could lead to unauthorized access to Perple",
       "category": "ai",
@@ -3507,19 +3469,6 @@
       "entropy": 3.0,
       "keywords": [
         "sentry"
-      ]
-    },
-    {
-      "id": "sentry-org-token",
-      "name": "Found a Sentry.io Organization Token, risking unauthorized access to error track",
-      "category": "observability",
-      "regex": "\\bsntrys_eyJpYXQiO[a-zA-Z0-9+/]{10,200}(?:LCJyZWdpb25fdXJs|InJlZ2lvbl91cmwi|cmVnaW9uX3VybCI6)[a-zA-Z0-9+/]{10,200}={0,2}_[a-zA-Z0-9+/]{43}(?:[^a-zA-Z0-9+/]|\\z)",
-      "captureGroup": 0,
-      "replacementTag": "SENTRY_ORG_TOKEN",
-      "confidence": "high",
-      "entropy": 4.5,
-      "keywords": [
-        "sntrys_eyjpyxqio"
       ]
     },
     {
