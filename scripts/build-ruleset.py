@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """
-Convert the upstream gitleaks TOML ruleset into a portable JSON envelope.
+Convert an upstream TOML secret-detection ruleset into a portable JSON envelope.
 
-Rationale: keeping TOML parsing and the Go-RE2-to-ICU regex translation
-off downstream consumers. Incompatible rules are dropped here and reported
-to a side file; consumers only see pre-vetted patterns.
-
-Inputs:
-  - https://raw.githubusercontent.com/gitleaks/gitleaks/master/config/gitleaks.toml
+Rationale: keeping TOML parsing and the Go-RE2-to-ICU regex translation off
+downstream consumers. Incompatible rules are dropped here and reported to a
+side file; consumers only see pre-vetted patterns.
 
 Outputs (in repo root):
   - latest.json   (the envelope consumers fetch)
@@ -24,7 +21,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-GITLEAKS_TOML_URL = (
+UPSTREAM_TOML_URL = (
     "https://raw.githubusercontent.com/gitleaks/gitleaks/master/config/gitleaks.toml"
 )
 
@@ -89,7 +86,7 @@ def icu_compiles(pattern: str) -> bool:
 
 
 def fetch_toml() -> str:
-    with urllib.request.urlopen(GITLEAKS_TOML_URL, timeout=30) as resp:
+    with urllib.request.urlopen(UPSTREAM_TOML_URL, timeout=30) as resp:
         return resp.read().decode("utf-8")
 
 
@@ -134,8 +131,8 @@ def build_envelope(toml_data: dict, version: str) -> tuple[dict, dict]:
             entry["keywords"] = list(keywords)
 
         allowlists = []
-        # gitleaks supports a single inline allowlist on `rule.allowlist` and/or
-        # a list `rule.allowlists`. Normalize.
+        # Upstream supports a single inline `rule.allowlist` and/or a list
+        # `rule.allowlists`. Normalize into a single list.
         if "allowlist" in rule:
             allowlists.append(rule["allowlist"])
         if "allowlists" in rule:
@@ -192,7 +189,7 @@ def compute_version(toml_text: str) -> str:
 
 def main() -> int:
     out_dir = Path(".")
-    print("Fetching upstream gitleaks.toml...")
+    print("Fetching upstream ruleset...")
     toml_text = fetch_toml()
     version = compute_version(toml_text)
     print(f"Version (sha256/12): {version}")

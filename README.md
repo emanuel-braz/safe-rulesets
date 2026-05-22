@@ -1,24 +1,42 @@
 # safe-rulesets
 
-Pre-processed secret-detection ruleset derived from upstream [gitleaks](https://github.com/gitleaks/gitleaks).
+Pre-processed catalogs and rulesets for client-side secret detection and
+compromised-dependency alerting. Consumed by downstream applications via
+plain HTTP GET (no auth, ETag-based caching).
 
-A daily GitHub Action fetches the upstream [gitleaks.toml](https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml),
-translates Go RE2 regex syntax to ICU (compatible with most regex engines including `NSRegularExpression`,
-Java/JS), drops rules that don't survive the translation, and commits the result to `latest.json` on `master`.
+Two artifacts are published from this repo:
 
-Downstream consumers fetch the ruleset directly from:
+| File | Purpose |
+|---|---|
+| `latest.json` | Secret-detection ruleset (regex + entropy + allowlists + keywords + composite-rule references). Translated from upstream TOML format to ICU-compatible regex so it runs on `NSRegularExpression`, Java, JS, etc. |
+| `compromised-packages.json` | Minimalist catalog of compromised package releases across npm / PyPI / pub. Carries `(ecosystem, name, advisory id, severity, version ranges)` only; human-readable advisory text is fetched lazily by id when needed. |
+
+Each artifact has a sibling report file (`report.json`, `compromised-packages-report.json`)
+describing what was dropped during translation/filtering and why.
+
+## Endpoints
 
 ```
 https://raw.githubusercontent.com/emanuel-braz/safe-rulesets/master/latest.json
+https://raw.githubusercontent.com/emanuel-braz/safe-rulesets/master/compromised-packages.json
 ```
 
-## Files
+Both responses send an `ETag` header — clients should send `If-None-Match` on
+subsequent fetches so 304 short-circuits avoid re-downloading unchanged data.
 
-- `latest.json` — the envelope. Versioned by truncated SHA-256 of the upstream TOML.
-- `report.json` — which upstream rules were dropped during translation and why. Useful when investigating false negatives.
-- `scripts/build-ruleset.py` — the converter. Runs in CI; can also be run locally with `python3 scripts/build-ruleset.py`.
+## Update cadence
 
-## Envelope schema
+- Secret-detection ruleset: refreshed daily at 04:00 UTC, committed only if the
+  upstream source changed.
+- Compromised-packages catalog: refreshed daily at 04:30 UTC, same change-only
+  commit policy.
+
+Both syncs run as GitHub Actions in this repo and can be triggered manually
+from the Actions tab (`Run workflow`).
+
+## Schemas
+
+### `latest.json` (secret-detection ruleset)
 
 ```json
 {
@@ -35,17 +53,42 @@ https://raw.githubusercontent.com/emanuel-braz/safe-rulesets/master/latest.json
       "confidence": "high|medium|low",
       "entropy": 3.5,
       "keywords": ["..."],
-      "allowlists": [{ "regexes": ["..."], "regexTarget": "secret|match|line", "stopwords": ["..."], "condition": "or|and" }],
-      "requiredRules": [{ "ruleID": "...", "withinLines": 2, "withinColumns": null }]
+      "allowlists": [
+        { "regexes": ["..."], "regexTarget": "secret|match|line", "stopwords": ["..."], "condition": "or|and" }
+      ],
+      "requiredRules": [
+        { "ruleID": "...", "withinLines": 2, "withinColumns": null }
+      ]
     }
   ]
 }
 ```
 
+### `compromised-packages.json`
+
+```json
+{
+  "v": "<sha-prefix>",
+  "g": "ISO-8601 timestamp",
+  "e": [
+    {
+      "k": "npm" | "PyPI" | "Pub",
+      "n": "<package-name>",
+      "i": "<advisory-id>",
+      "s": "malicious|critical|high|medium|low|unknown",
+      "r": [ { "i": "introduced", "f": "fixed", "la": "lastAffected" } ]
+    }
+  ]
+}
+```
+
+Single-letter keys deliberately — keeps the catalog small as the corpus grows.
+
 ## Local run
 
 ```bash
-python3 scripts/build-ruleset.py
+python3 scripts/build-ruleset.py            # secret-detection ruleset
+python3 scripts/build-compromised-packages.py  # compromised-packages catalog
 ```
 
 Requires Python 3.11+ (uses stdlib `tomllib`).

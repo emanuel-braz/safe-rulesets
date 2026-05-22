@@ -1,4 +1,4 @@
-name: Sync gitleaks ruleset
+name: Sync secret-detection ruleset
 
 on:
   schedule:
@@ -31,5 +31,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json report.json
-          git commit -m "chore: sync gitleaks ruleset"
+          git commit -m "chore: sync secret-detection ruleset"
           git push
