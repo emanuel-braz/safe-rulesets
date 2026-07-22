@@ -1,12 +1,12 @@
 {
-  "fetchedAt": "2026-07-21T06:45:08.875897+00:00",
+  "fetchedAt": "2026-07-22T07:05:13.530045+00:00",
   "perEcosystem": {
     "PyPI": {
-      "scanned": 24386,
+      "scanned": 24394,
       "kept": 11543
     },
     "npm": {
-      "scanned": 223451,
+      "scanned": 223470,
       "kept": 216603
     },
     "Pub": {
