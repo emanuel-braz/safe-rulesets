@@ -1,19 +1,19 @@
 {
-  "fetchedAt": "2026-08-02T07:04:30.422029+00:00",
+  "fetchedAt": "2026-08-03T07:53:19.306765+00:00",
   "perEcosystem": {
     "PyPI": {
-      "scanned": 24637,
-      "kept": 11601
+      "scanned": 24639,
+      "kept": 11603
     },
     "npm": {
-      "scanned": 224136,
-      "kept": 217101
+      "scanned": 224206,
+      "kept": 217171
     },
     "Pub": {
       "scanned": 13,
       "kept": 0
     }
   },
-  "totalEntries": 228702,
-  "version": "f47235cd4b4a"
+  "totalEntries": 228774,
+  "version": "7da5f05b2655"
 }
